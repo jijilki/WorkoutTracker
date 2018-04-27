@@ -22,7 +22,11 @@ public interface WorkoutServiceInterface {
 	public List<WorkItemResponse> getAllWorkItems();
 	
 	public String addWorkItem(WorkItemRequest workITemRequest);
+
+
+
+	public String deleteCategory(CategoryRequest categoryRequest);
 	
-	
+	public String updateCategory(CategoryRequest categoryRequest);
 
 }

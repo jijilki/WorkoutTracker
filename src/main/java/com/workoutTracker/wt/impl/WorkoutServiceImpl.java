@@ -77,6 +77,26 @@ public List<WorkItemResponse> getAllWorkItems() {
 	}
 	return workCategoryResponses;
 }
+
+public String deleteCategory(CategoryRequest categoryRequest) {
+	// TODO Auto-generated method stub
+System.out.println("Inside Impl:Delete Category");
+	
+	Category category = new Category();
+	category.set_catId(categoryRequest.get_catId());
+	category.setCategoryName(categoryRequest.getCategoryName());
+	return workoutDao.deleteCategory(category);
+}
+
+public String updateCategory(CategoryRequest categoryRequest) {
+	// TODO Auto-generated method stub
+	// TODO Auto-generated method stub
+		System.out.println("Inside Impl:Delete Category");
+		Category category = new Category();
+		category.set_catId(categoryRequest.get_catId());
+		category.setCategoryName(categoryRequest.getCategoryName());
+		return workoutDao.createCategory(category);
+}
 	
 
 }

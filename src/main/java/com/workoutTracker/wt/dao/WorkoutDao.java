@@ -50,5 +50,11 @@ WorkoutRepository workoutRepository;
 		return "Success";
 	}
 
+	public String deleteCategory(Category category) {
+		// TODO Auto-generated method stub
+		categoryRepository.delete(category);
+		return "Success";
+	}
+
 
 }
