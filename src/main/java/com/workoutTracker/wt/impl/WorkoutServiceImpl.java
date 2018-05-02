@@ -52,11 +52,25 @@ public String addCategory(CategoryRequest categoryRequest) {
 
 public String addWorkItem(WorkItemRequest workItemRequest) {
 	// TODO Auto-generated method stub
+	
 	Workout workout = new Workout();
+	List<Category> categoryList = workoutDao.getAllCategories();
+	for (Category category : categoryList) {
+		if(category.get_catId()== workItemRequest.getCategory().get_catId()){
+			workout.setCategory(category);
+			break;
+		}
+	}
+	
 	workout.setWorkout_title(workItemRequest.getWorkout_title());
 	workout.setWorkout_note(workItemRequest.getWorkout_note());
 	workout.setCbpm(workItemRequest.getCbpm());
-	workout.setCategory(workItemRequest.getCategory());
+	System.out.println(workItemRequest.getCategory().get_catId());
+	if(workItemRequest.getWorkout_id()!=0){
+		workout.setWorkout_id(workItemRequest.getWorkout_id());
+	}
+
+
 	return workoutDao.createWorkItem(workout);
 }
 
@@ -69,6 +83,7 @@ public List<WorkItemResponse> getAllWorkItems() {
 	for (Workout workout : workoutList) {
 		WorkItemResponse workItemResponse = new WorkItemResponse();
 		workItemResponse.setCategory(workout.getCategory());
+		
 		workItemResponse.setCbpm(workout.getCbpm());
 		workItemResponse.setWorkout_id(workout.getWorkout_id());
 		workItemResponse.setWorkout_note(workout.getWorkout_note());
@@ -85,7 +100,7 @@ System.out.println("Inside Impl:Delete Category");
 	Category category = new Category();
 	category.set_catId(categoryRequest.get_catId());
 	category.setCategoryName(categoryRequest.getCategoryName());
-	return workoutDao.deleteCategory(category);
+	return workoutDao.deleteCategory(category);	
 }
 
 public String updateCategory(CategoryRequest categoryRequest) {
@@ -96,6 +111,12 @@ public String updateCategory(CategoryRequest categoryRequest) {
 		category.set_catId(categoryRequest.get_catId());
 		category.setCategoryName(categoryRequest.getCategoryName());
 		return workoutDao.createCategory(category);
+}
+
+@Override
+public String deleteWorkItem(WorkItemRequest workItemRequest) {
+	
+	return workoutDao.deleteWorkItem(workItemRequest.getWorkout_id());
 }
 	
 

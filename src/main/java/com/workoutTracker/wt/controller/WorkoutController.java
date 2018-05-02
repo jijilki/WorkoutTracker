@@ -20,7 +20,7 @@ import com.workoutTracker.wt.response.WorkItemResponse;
 @CrossOrigin(origins="*")
 @RestController
 public class WorkoutController {
-	
+		
 	
 	@Autowired
 	WorkoutServiceInterface workoutServiceInterface;
@@ -64,6 +64,13 @@ public class WorkoutController {
 	@RequestMapping(path="/addWorkItem",method=RequestMethod.POST)
 	public String addWorkItem(@RequestBody WorkItemRequest workITemRequest){
 		return workoutServiceInterface.addWorkItem(workITemRequest);
+	}
+	
+
+	
+	@RequestMapping(path="/deleteWorkItem",method=RequestMethod.POST)
+	public String deleteWorkItem(@RequestBody WorkItemRequest workITemRequest){
+		return workoutServiceInterface.deleteWorkItem(workITemRequest);
 	}
 	
 	

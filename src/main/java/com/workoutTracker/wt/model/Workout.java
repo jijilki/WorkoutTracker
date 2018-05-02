@@ -22,8 +22,9 @@ public class Workout {
 	@Column(name= "workout_id")
 	private int workout_id;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
+	
+	 @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "category_id", nullable = false)
 	private Category  category;
 	
 	
@@ -70,6 +71,7 @@ public class Workout {
 		this.cbpm = cbpm;
 	}
 
+	
 	public Category getCategory() {
 		return category;
 	}

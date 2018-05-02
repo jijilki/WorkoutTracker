@@ -1,7 +1,9 @@
 package com.workoutTracker.wt.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.workoutTracker.wt.model.Category;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class WorkItemResponse {
 	
 
@@ -23,10 +25,18 @@ public class WorkItemResponse {
 		this.workout_id = workout_id;
 	}
 
+
+
+	/**
+	 * @return the category
+	 */
 	public Category getCategory() {
 		return category;
 	}
 
+	/**
+	 * @param category the category to set
+	 */
 	public void setCategory(Category category) {
 		this.category = category;
 	}

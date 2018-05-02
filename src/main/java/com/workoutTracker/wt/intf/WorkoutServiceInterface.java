@@ -29,4 +29,8 @@ public interface WorkoutServiceInterface {
 	
 	public String updateCategory(CategoryRequest categoryRequest);
 
+
+
+	public String deleteWorkItem(WorkItemRequest workITemRequest);
+
 }

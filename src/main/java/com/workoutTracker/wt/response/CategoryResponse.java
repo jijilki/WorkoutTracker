@@ -1,5 +1,8 @@
 package com.workoutTracker.wt.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CategoryResponse {
 
 	private int _catId;

@@ -56,5 +56,13 @@ WorkoutRepository workoutRepository;
 		return "Success";
 	}
 
+	public String deleteWorkItem(int workout_id) {
+		// TODO Auto-generated method stub
+		Workout workout = new Workout();
+		workout.setWorkout_id(workout_id);
+		workoutRepository.delete(workout);
+		return "Success";
+	}
+
 
 }
