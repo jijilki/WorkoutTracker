@@ -7,25 +7,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.workoutTracker.wt.model.ActiveWorkout;
 import com.workoutTracker.wt.model.Category;
 import com.workoutTracker.wt.model.Workout;
 import com.workoutTracker.wt.repo.CategoryRepository;
 import com.workoutTracker.wt.repo.WorkoutRepository;
+import com.workoutTracker.wt.repo.ActiveWorkoutRepository;
+
 @Component
 public class WorkoutDao {
 
-@Autowired
-CategoryRepository categoryRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
 
-@Autowired
-WorkoutRepository workoutRepository;
+	@Autowired
+	WorkoutRepository workoutRepository;
 
-
+	@Autowired
+	ActiveWorkoutRepository activeWorkoutRepository;
 
 	public List<Category> getAllCategories() {
 		// TODO Auto-generated method stub
 		List<Category> catList = new ArrayList<Category>();
-		Iterable<Category> categorylist= categoryRepository.findAll();
+		Iterable<Category> categorylist = categoryRepository.findAll();
 		catList.addAll((Collection<? extends Category>) categorylist);
 		return catList;
 	}
@@ -39,11 +43,11 @@ WorkoutRepository workoutRepository;
 	public List<Workout> getAllWorkItem() {
 		// TODO Auto-generated method stub
 		List<Workout> workList = new ArrayList<Workout>();
-		Iterable<Workout> workOutList= workoutRepository.findAll();
+		Iterable<Workout> workOutList = workoutRepository.findAll();
 		workList.addAll((Collection<? extends Workout>) workOutList);
 		return workList;
 	}
-	
+
 	public String createWorkItem(Workout workout) {
 		// TODO Auto-generated method stub
 		workoutRepository.save(workout);
@@ -64,5 +68,20 @@ WorkoutRepository workoutRepository;
 		return "Success";
 	}
 
+	public void saveActiveWorkout(ActiveWorkout activeWorkout) {
+		// TODO Auto-generated method stub
+		activeWorkoutRepository.save(activeWorkout);
+
+	}
+
+	public List<ActiveWorkout> getActiveWorkouts() {
+		// TODO Auto-generated method stub
+		List<ActiveWorkout> activeWorkoutList = new ArrayList<ActiveWorkout>();
+		Iterable<ActiveWorkout> activeWorkouts = activeWorkoutRepository
+				.findAll();
+		activeWorkoutList
+				.addAll((Collection<? extends ActiveWorkout>) activeWorkouts);
+		return activeWorkoutList;
+	}
 
 }

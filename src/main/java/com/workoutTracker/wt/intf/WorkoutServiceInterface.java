@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.workoutTracker.wt.model.ActiveWorkout;
+import com.workoutTracker.wt.request.ActiveWorkItemRequest;
 import com.workoutTracker.wt.request.CategoryRequest;
 import com.workoutTracker.wt.request.WorkItemRequest;
 import com.workoutTracker.wt.response.CategoryResponse;
@@ -32,5 +34,13 @@ public interface WorkoutServiceInterface {
 
 
 	public String deleteWorkItem(WorkItemRequest workITemRequest);
+
+
+
+	public String addActiveWorkItem(ActiveWorkItemRequest activeRequest);
+
+
+
+	public List<ActiveWorkout> getActiveWorkouts();
 
 }

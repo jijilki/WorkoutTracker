@@ -1,6 +1,14 @@
 package com.workoutTracker.wt.impl;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +17,10 @@ import org.springframework.stereotype.Service;
 
 import com.workoutTracker.wt.dao.WorkoutDao;
 import com.workoutTracker.wt.intf.WorkoutServiceInterface;
+import com.workoutTracker.wt.model.ActiveWorkout;
 import com.workoutTracker.wt.model.Category;
 import com.workoutTracker.wt.model.Workout;
+import com.workoutTracker.wt.request.ActiveWorkItemRequest;
 import com.workoutTracker.wt.request.CategoryRequest;
 import com.workoutTracker.wt.request.WorkItemRequest;
 import com.workoutTracker.wt.response.CategoryResponse;
@@ -113,11 +123,61 @@ public String updateCategory(CategoryRequest categoryRequest) {
 		return workoutDao.createCategory(category);
 }
 
-@Override
+
 public String deleteWorkItem(WorkItemRequest workItemRequest) {
 	
 	return workoutDao.deleteWorkItem(workItemRequest.getWorkout_id());
 }
+
+public String addActiveWorkItem(ActiveWorkItemRequest activeRequest) {
+	// TODO Auto-generated method stub
+	ActiveWorkout activeWorkout = new ActiveWorkout();
+	 
+	try {
+		activeWorkout.setStart_date(getDate(activeRequest.getStart_date()));
+		activeWorkout.setEnd_date(getDate(activeRequest.getEnd_date()));
+		
+		activeWorkout.setStart_time(getTime(activeRequest.getStart_time()));
+		activeWorkout.setEnd_time(getTime(activeRequest.getEnd_time()));
+		Workout workout= new Workout();
+		workout.setWorkout_id(activeRequest.getWorkout().getWorkout_id());
+		workout.setCbpm(activeRequest.getWorkout().getCbpm());
+		workout.setWorkout_note(activeRequest.getWorkout().getWorkout_note());
+		workout.setWorkout_title(activeRequest.getWorkout().getWorkout_title());
+		Category category = new Category();
+		category.set_catId(activeRequest.getWorkout().getCategory().get_catId());
+		category.setCategoryName(activeRequest.getWorkout().getCategory().getCategoryName());
+		workout.setCategory(category);
+		activeWorkout.setWorkout(workout);
+		activeWorkout.setComment(activeRequest.getWorkout().getWorkout_note());
+		activeWorkout.setStatus("Ended");
+		workoutDao.saveActiveWorkout(activeWorkout);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+}
 	
+private Time getTime(String sTime) {
+	// TODO Auto-generated method stub
+	/*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh-mm");
+	LocalTime tTime = LocalTime.parse(sTime, dtf);*/
+	return Time.valueOf(sTime);
+}
+
+private Date getDate(String sDate) throws ParseException{
+	
+
+java.util.Date date=new SimpleDateFormat("dd-MM-yy").parse(sDate); 
+java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
+	return sqlDate;
+}
+
+public List<ActiveWorkout> getActiveWorkouts() {
+	// TODO Auto-generated method stub
+	List<ActiveWorkout> activeWorkout =workoutDao.getActiveWorkouts();
+	return workoutDao.getActiveWorkouts();
+}
 
 }

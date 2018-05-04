@@ -1,10 +1,13 @@
 package com.workoutTracker.wt.model;
 
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,12 +19,13 @@ import javax.persistence.Table;
 public class ActiveWorkout {
 	
 	@ManyToOne
-	@JoinColumn(name="workout_id")
+	@JoinColumn(name="workout_id", nullable = false)
 	private Workout workout;
 	
 	@Id
 	@Column(name="active_workout_id")
-	private String active_workout_id;
+	@GeneratedValue(strategy =GenerationType.AUTO)
+	private int active_workout_id;
 	
 	@Column(name="start_time")
 	private Time  start_time;
@@ -57,14 +61,14 @@ public class ActiveWorkout {
 	public Date getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStart_date(Date date) {
+		this.start_date = (Date) date;
 	}
 	public Date getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setEnd_date(Date date) {
+		this.end_date =  date;
 	}
 	public String getComment() {
 		return comment;
