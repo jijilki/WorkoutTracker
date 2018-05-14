@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GeneratorType;
 
@@ -24,28 +25,34 @@ public class Workout {
 	@Id
 	@GeneratedValue(strategy =GenerationType.AUTO)
 	@Column(name= "workout_id")
+	 @NotNull
 	private int workout_id;
 	
 	
 	 @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "category_id", nullable = false)
+	 @NotNull
 	private Category  category;
 	
 	
 	@Column( name ="workout_title")
+	 @NotNull
 	private String workout_title;
 	
 	@Column(name="workout_note")
+	 @NotNull
 	private String workout_note;
 	
 	@Column(name="calories_burn_per_min")
+	 @NotNull
 	private float cbpm;
 	
 	
 	 
 	 @OneToMany(cascade = CascadeType.ALL,
 	            fetch = FetchType.LAZY,
-	            mappedBy = "workout")
+	            mappedBy = "workout",
+	            orphanRemoval = true)
 	    private Set<ActiveWorkout> activeWorkout = new HashSet<ActiveWorkout>();
 
 	public int getWorkout_id() {

@@ -37,7 +37,8 @@ public class Category {
 	 
 	 @OneToMany(cascade = CascadeType.ALL,
 	            fetch = FetchType.LAZY,
-	            mappedBy = "category")
+	            mappedBy = "category",
+	            orphanRemoval = true)
 	    private Set<Workout> workouts = new HashSet<Workout>();
 	
 	public int get_catId() {
