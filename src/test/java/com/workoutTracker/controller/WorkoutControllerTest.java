@@ -1,56 +1,55 @@
 package com.workoutTracker.controller;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
-
-import static org.junit.Assert.assertEquals;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.workoutTracker.wt.controller.WorkoutController;
-import com.workoutTracker.wt.dao.WorkoutDao;
 import com.workoutTracker.wt.impl.WorkoutServiceImpl;
 import com.workoutTracker.wt.intf.WorkoutServiceInterface;
-import com.workoutTracker.wt.model.Category;
 import com.workoutTracker.wt.request.CategoryRequest;
 
-@SuppressWarnings("deprecation")
+import org.junit.Assert;
+
 @RunWith(MockitoJUnitRunner.class)
-public class WorkoutControllerTest {
+public class WorkoutControllerTest{
 	
 	@InjectMocks
 	WorkoutController workoutControllerMock;
 	
-	@InjectMocks
-	WorkoutServiceImpl workoutServiceImplMock;
+	@Mock
+	WorkoutServiceInterface workoutServMock;
 	
-	@InjectMocks
-	WorkoutDao workoutDaoMock;
+	CategoryRequest categoryRequest = new CategoryRequest();
 	
-	CategoryRequest catRequest;
-	
-	Category cat;
-	
-	String status;
 	@Before
-	public void mockData(){
+	public void mockData (){
+		// TODO Auto-generated constructor stub
+		categoryRequest.setCategoryName("Yoga");
 		
-		catRequest = new CategoryRequest();
-		catRequest.setCategoryName("AAA");
-	//	cat.setCategoryName(catRequest.getCategoryName());
-		}
+	}
+	
 	
 	@Test
-	public void testAddCategory(){
-		Mockito.when(workoutServiceImplMock.addCategory(catRequest)).thenReturn(status);
-		Mockito.when(workoutDaoMock.createCategory(cat)).thenReturn(status);
-		//assertEquals(status,"Success");
-		assertEquals(status, workoutControllerMock.addCategory(catRequest));
+	public void testCreateCategory(){
+		Mockito.when(workoutServMock.addCategory(Matchers.any(CategoryRequest.class))).thenReturn("success");
+		Assert.assertEquals("success", workoutControllerMock.addCategory(categoryRequest));
+	
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
 }
